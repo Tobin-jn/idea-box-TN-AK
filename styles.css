@@ -1,7 +1,44 @@
-.idea-container {
-  border: 3px solid red;
+/* ------------ BASE --------------- */
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
-.svg {
-  height: 20px;
+body {
+  font-family: 'Open Sans', sans-serif;
 }
+
+h1, h2,
+h3, h4,
+h5, h6 {
+  font-family: 'Roboto Slab', serif;
+}
+
+
+
+/* ------------ LAYOUT --------------- */
+
+.layout-main {
+  display: grid;
+  grid-template-columns: 20% 1fr 20%;
+  grid-template-rows: 2;
+  grid-template-areas:
+  ". idea-entry ."
+  ". idea-container .";
+}
+
+.layout-idea-container {
+  grid-area: idea-container;
+}
+
+.layout-idea-entry {
+  grid-area: idea-entry;
+}
+
+
+/* ------------ MODULES --------------- */
+
+
+/* ------------ STATE --------------- */
