@@ -133,4 +133,45 @@ h1 span {
   margin: 5px auto 30px;
   width: 60%;
 }
+
+/* Buttons */
+
+.delete-card {
+  background-image: url('icons/delete.svg');
+  border: none;
+  width: 2rem;
+}
+
+.downvote {
+  background-image: url('icons/downvote.svg');
+  border: none;
+  width: 2rem;
+}
+
+.upvote {
+  background-image: url('icons/upvote.svg');
+  border: none;
+  width: 2rem;
+}
+
 /* ------------ STATE --------------- */
+
+button:focus {
+  outline: none;
+}
+
+button:hover {
+  cursor: pointer;
+}
+
+.delete-card:hover {
+  background-image: url('icons/delete-hover.svg');
+}
+
+.downvote:hover {
+  background-image: url('icons/downvote-hover.svg');
+}
+
+.upvote:hover {
+  background-image: url('icons/upvote-hover.svg');
+}
