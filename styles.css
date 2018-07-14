@@ -10,6 +10,13 @@ body {
   font-family: 'Open Sans', sans-serif;
 }
 
+hr {
+  background-color: #D1D3D4;
+  border: none;
+  height: 1.5px;
+  /* margin-top: 1rem; */
+}
+
 h1 {
   color: #00A79D;
   font-size: 70px;
@@ -28,7 +35,7 @@ h1 span {
 
 
 .svg {
-  height: 20px;
+  height: 30px;
 }
 
 
@@ -65,24 +72,60 @@ h1 span {
 }
 
 
-/* ------------ MODULES --------------- */
+/* ------------ mS --------------- */
 
-.module-input {
+.m-idea-card {
+  color: #939598;
+  margin: 1rem;
+  width: 100%;
+}
+
+.m-idea-card p {
+  padding: 1rem 0;
+}
+
+.m-idea-card div.flex-row {
+  color: #6D6E71;
+  display: flex;
+  justify-content: space-between;
+
+}
+
+.m-idea-card div.quality-buttons {
+  color: #6D6E71;
+  display: inline-block;
+  margin: 1rem 0;
+}
+
+.m-idea-card div.quality-buttons p {
+  bottom: 10px;
+  color: #6D6E71;
+  display: inline-block;
+  position: relative;
+  width: 15rem;
+}
+
+.m-idea-card div.quality-buttons img {
+  padding-right: 1rem;
+}
+
+
+.m-input {
   border: 1.5px solid #D1D3D4;
   color: #939598;
   font-size: 24px;
   height: 45px;
-  margin: 1px;
+  margin: 10px;
   padding: 5px;
   width: 60%;
 }
 
-.module-searchbar {
-  margin-top: 25px;
+.m-searchbar {
+  margin: 30px;
   width: 100%;
 }
 
-.module-submit-btn {
+.m-submit-btn {
   background-color: #00A79D;
   color: #FFF;
   font-size: 24px;
