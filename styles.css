@@ -10,11 +10,21 @@ body {
   font-family: 'Open Sans', sans-serif;
 }
 
+h1 {
+  color: #00A79D;
+  font-size: 48px;
+}
+
 h1, h2,
 h3, h4,
 h5, h6 {
   font-family: 'Roboto Slab', serif;
 }
+
+h1 span {
+  color: #6D6E71;
+}
+
 
 .svg {
   height: 20px;
@@ -56,5 +66,15 @@ h5, h6 {
 
 /* ------------ MODULES --------------- */
 
+.module-input {
+  height: 2rem;
+  margin: 7px;
+  width: 60%;
+}
+
+.module-searchbar {
+  margin-top: 25px;
+  width: 100%;
+}
 
 /* ------------ STATE --------------- */
