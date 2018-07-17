@@ -12,15 +12,16 @@
     <main class="layout-main">
       <section class="layout-idea-entry">
         <h1>idea<span class="box-style">box</span></h1>
-        <input type="text" title="Title Entry" class="m-input" placeholder="Title">
-        <input type="text" title="Idea Body Entry" class="m-input" placeholder="Body">
+        <!-- added class to differentiate between title and body -->
+        <input type="text" title="Title Entry" class="m-input m-input-title" placeholder="Title">
+        <input type="text" title="Idea Body Entry" class="m-input m-input-body" placeholder="Body">
         <button class="save-button m-submit-btn">save</button>
       </section>
       <section class="idea-container layout-idea-container">
         <input type="text" name="Search" class="m-searchbar m-input" placeholder="Search">
         <!-- <div class="idea-list">
         </div> -->
-        <article class="m-idea-card">
+       <!--  <article class="m-idea-card">
           <div class="idea-header flex-row">
             <h2>Example Idea 1</h2>
             <button class="delete-card svg" alt="Delete"></button>
@@ -60,10 +61,14 @@
             <p class="quality">quality: swill</p>
           </div>
           <hr>
-        </article>
+        </article> -->
 
       </section>
     </main>
+ 
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script>window.jQuery || document.write('<script src="jquery-3.3.1.min.js"><\/script>')</script>
+    <script type="text/javascript" src="script.js"></script>
   </body>
 </html>
 
