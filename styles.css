@@ -112,7 +112,7 @@ h1 span {
 
 .m-input {
   border: 1.5px solid #D1D3D4;
-  color: #939598;
+  color: #00A79D;
   font-size: 24px;
   height: 45px;
   margin: 10px;
@@ -152,7 +152,7 @@ h1 span {
   background-image: url('icons/upvote.svg');
   border: none;
   width: 2rem;
-} 
+}
 
 /* ------------ STATE --------------- */
 
@@ -176,8 +176,16 @@ button:hover {
   background-image: url('icons/upvote-hover.svg');
 }
 
+.m-input::placeholder {
+  color: #939598;
+}
+
 .m-submit-btn:hover {
   background-color: #045E55;
+}
+
+.m-submit-btn:disabled {
+  background-color: #86b9b4;
 }
 
 @media screen (max-width: 600px), (orientation: portrait) {
