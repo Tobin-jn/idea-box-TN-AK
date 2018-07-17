@@ -2,8 +2,11 @@ var userTitle = $('.m-input-title');
 var userBody = $('.m-input-body');
 var saveBtn = $('.m-submit-btn');
 var cardContainer = $('.idea-container');
+var ideaList = $('.idea-list');
 var ideaArray = []
+initializeCards()
 
+// console.log (localStorage.getItem('ideaArray'))
 //a function when the page is first loaded. 
 //This function checks if any data is in local Storage and adds the data as a card.
 
@@ -19,23 +22,23 @@ cardContainer.on('click', console.log('test'))
 //Function currently stores but overwrites the previous data with the key savedData
 function saveNewInput(event) {
   event.preventDefault();
-  var newIdeaObject = {
+  var ideaObject = {
   ideaTitle: userTitle.val(),
   ideaBody: userBody.val(),
   };
 
-
-  var JSONObject = JSON.stringify(newIdeaObject);
-  ideaArray.unshift(JSONObject)
-  localStorage.setItem('ideaArray', ideaArray)
-  console.log(ideaArray)
+  ideaArray.unshift(ideaObject)
+  localStorage.setItem('ideaArray', JSON.stringify(ideaArray))
   makeNewCard()
 }
 
+
 //Function makes a new card with the info in the input fields
 function makeNewCard() {
-  var newTitle = userTitle.val();
-  var newBody = userBody.val();
+  ideaArray = JSON.parse(localStorage.getItem('ideaArray'));
+  var newTitle = ideaArray[0].ideaTitle
+  var newBody = ideaArray[0].ideaBody
+  console.log(ideaArray[0])
 var newCard = `<article class="m-idea-card">
                   <div class="idea-header flex-row">
                     <h2>${newTitle}</h2>
@@ -49,9 +52,36 @@ var newCard = `<article class="m-idea-card">
                 </div>
                 <hr>
               </article>`
- cardContainer.append(newCard);
+ ideaList.prepend(newCard);
  clearInput()
 }
+
+function initializeCards() {
+ ideaArray = JSON.parse(localStorage.getItem('ideaArray'));
+ ideaArray.forEach( function(element) {
+  console.log(element)
+  var newTitle = element.ideaTitle
+  var newBody = element.ideaBody
+  var newCard = `<article class="m-idea-card">
+                  <div class="idea-header flex-row">
+                    <h2>${newTitle}</h2>
+                    <button class="delete-card svg" alt="Delete"></button>
+                  </div>
+                  <p class="idea-description">${newBody}</p>
+                  <div class="quality-buttons">
+                    <button class="upvote svg" role="button" aria-label="Upvote Idea"></button>
+                    <button class="downvote svg"></button>
+                    <p class="quality">swill</p>
+                </div>
+                <hr>
+              </article>`
+  ideaList.append(newCard);
+ })
+
+}
+
+
+
 //clears inputs after card is made
 function clearInput() {
   userTitle.val('');
