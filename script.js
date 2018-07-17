@@ -3,42 +3,33 @@ var userBody = $('.m-input-body');
 var saveBtn = $('.m-submit-btn');
 var cardContainer = $('.idea-container');
 
-saveBtn.on('click', newIdea);
+
+//a function when the page is first loaded. 
+//This function checks if any data is in local Storage and adds the data as a card.
+
+
+saveBtn.on('click', saveNewInput);
+cardContainer.on('click', deleteIdea)
 
 //1. Click --> capture inputs --> move info to local storage -->  
 //        create card using parsed date includes unique identifier--> clear the input
 
-//2. make delete functionality, includes removing data from local storage
-//3. quality  ===  click --> change class and HTML
 
-
-
-///put data into local storage//
-
-//make a function that grabs the inputs, save as a variable
-//those inputs are used to make an object
-//follow work flow--save that object in local storage via stringify
-
-
-var newIdeaObject = {
-  ideaTitle: 'newTitle',
-  ideaBody: 'newBody',
-};
-var stringifiedObject = JSON.stringify(newIdeaObject);
-localStorage.setItem('newIdea', stringifiedObject)
-  
-//make a function
-//call the object in storage
-//use properties from the object to populate the new card
-//make the card
-
-var retrievedObject = localStorage.getItem('newIdea');
-var parsedObject = JSON.parse(retrievedObject);
-
-
-//create new idea card- use info from the object saved in storage//
-function newIdea(event) {
+//Function checks if any data is stored and adds it to localStorage.
+//Function currently stores but overwrites the previous data with the key savedData
+function saveNewInput(event) {
   event.preventDefault();
+  var newIdeaObject = {
+  ideaTitle: userTitle.val(),
+  ideaBody: userBody.val(),
+  };
+  var stringifiedNewIdea = JSON.stringify(newIdeaObject)
+  localStorage.setItem('savedData', stringifiedNewIdea)
+  makeNewCard()
+}
+
+//Function makes a new card with the info in the input fields
+function makeNewCard() {
   var newTitle = userTitle.val();
   var newBody = userBody.val();
 var newCard = `<article class="m-idea-card">
@@ -54,24 +45,66 @@ var newCard = `<article class="m-idea-card">
                 </div>
                 <hr>
               </article>`
-
-
-
  cardContainer.append(newCard);
  clearInput()
 }
-
+//clears inputs after card is made
 function clearInput() {
   userTitle.val('');
   userBody.val('');
 }
 
+
+//retrieves data from localStorage, I think key needs to be dynamic...
+function retrieveNewInput () {
+  var retrievedNewIdea = localStorage.getItem('savedData');
+  var parsedObject = JSON.parse(retrievedNewIdea);
+  return parsedObject
+}
 //delete the card
 //eventlistener--> locate the target using the class on the delete button
 //use .remove() to remove that card from the DOM
 //.removeItem() to remove that object from localStorage
 
 
+function deleteIdea() {
+ if(event.target.className === '.delete-card') {
+    event.target.parentElement.remove()
+//remove data from local storage... needs to have that unique identifier to locate
+    localStorage.removeItem()
+}
+};
+
+
+
+//3. quality  ===  click --> change class and HTML
 
 //Big question--> How to make the unique identifier??
 //will need this to locate card to delete and to locate info in local storage to remove
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
