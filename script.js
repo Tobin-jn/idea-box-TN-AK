@@ -2,14 +2,14 @@ var userTitle = $('.m-input-title');
 var userBody = $('.m-input-body');
 var saveBtn = $('.m-submit-btn');
 var cardContainer = $('.idea-container');
-
+var ideaArray = []
 
 //a function when the page is first loaded. 
 //This function checks if any data is in local Storage and adds the data as a card.
 
 
 saveBtn.on('click', saveNewInput);
-cardContainer.on('click', deleteIdea)
+cardContainer.on('click', console.log('test'))
 
 //1. Click --> capture inputs --> move info to local storage -->  
 //        create card using parsed date includes unique identifier--> clear the input
@@ -23,8 +23,12 @@ function saveNewInput(event) {
   ideaTitle: userTitle.val(),
   ideaBody: userBody.val(),
   };
-  var stringifiedNewIdea = JSON.stringify(newIdeaObject)
-  localStorage.setItem('savedData', stringifiedNewIdea)
+
+
+  var JSONObject = JSON.stringify(newIdeaObject);
+  ideaArray.unshift(JSONObject)
+  localStorage.setItem('ideaArray', ideaArray)
+  console.log(ideaArray)
   makeNewCard()
 }
 
@@ -70,8 +74,6 @@ function retrieveNewInput () {
 function deleteIdea() {
  if(event.target.className === '.delete-card') {
     event.target.parentElement.remove()
-//remove data from local storage... needs to have that unique identifier to locate
-    localStorage.removeItem()
 }
 };
 
