@@ -152,7 +152,7 @@ h1 span {
   background-image: url('icons/upvote.svg');
   border: none;
   width: 2rem;
-}
+} 
 
 /* ------------ STATE --------------- */
 
@@ -174,4 +174,44 @@ button:hover {
 
 .upvote:hover {
   background-image: url('icons/upvote-hover.svg');
+}
+
+.m-submit-btn:hover {
+  background-color: #045E55;
+}
+
+@media screen (max-width: 600px), (orientation: portrait) {
+
+  button {
+    background-color: white;
+  }
+
+  h1 {
+    font-size: 40px;
+    margin: 1rem auto 0;
+  }
+
+  .m-idea-card {
+    width: 130%;
+  }
+
+  .m-input {
+    height: 40px;
+    width: 90%;
+  }
+
+  .m-searchbar {
+    margin: 30px 0;
+    width: 130%;
+  }
+
+  .m-submit-btn {
+    margin: 1rem;
+    width: 90%;
+  }
+
+  .textbox {
+    height: 9rem;
+  }
+
 }
