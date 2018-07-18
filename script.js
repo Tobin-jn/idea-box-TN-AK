@@ -6,6 +6,9 @@ $(document).ready( function () {
   var cardContainer = $('.idea-container');
   var ideaList = $('.m-idea-list');
   var ideaArray = [];
+
+  $('.save-btn').prop('disabled', true);
+
   checkStorage();
   initializeCards();
   deleteIdea();
@@ -14,6 +17,10 @@ $(document).ready( function () {
   //a function when the page is first loaded.
   //This function checks if any data is in local Storage and adds the data as a card.
 
+  function checkInputs () {
+    if ($('.idea-title').val() && $('.textbox').val()) return false;
+    return true;
+  }
 
   function checkStorage () {
     ideaArray = localStorage.getItem('ideaArray');
@@ -36,8 +43,17 @@ $(document).ready( function () {
     saveNewInput();
     makeNewCard();
     deleteIdea();
+    $('.save-btn').prop('disabled', checkInputs);
   });
   cardContainer.on('click', console.log('test'))
+
+  $('.idea-title').on('keyup', function () {
+    $('.save-btn').prop('disabled', checkInputs);
+  })
+
+  $('.textbox').on('keyup', function () {
+    $('.save-btn').prop('disabled', checkInputs);
+  })
 
   //1. Click --> capture inputs --> move info to local storage -->
   //        create card using parsed date includes unique identifier--> clear the input
@@ -80,11 +96,9 @@ $(document).ready( function () {
   }
 
   function initializeCards() {
-    console.log(ideaArray)
    if (ideaArray[0] !== undefined) {
      ideaArray = JSON.parse(localStorage.getItem('ideaArray'));
      ideaArray.forEach( function(element) {
-      console.log(element)
       var newTitle = element.ideaTitle
       var newBody = element.ideaBody
       var newCard = `<article class="m-idea-card">
