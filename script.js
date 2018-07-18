@@ -31,11 +31,49 @@ $(document).ready( function () {
     $('.delete-card').on('click', function () {
       $(this).parent().parent().slideUp(1000);
       var deleteMe = $(this).prev().html();
-      // deleteMe = String(deleteMe);
-      // console.log(deleteMe);
-      // localStorage.removeItem(deleteMe)
+      console.log(deleteMe)
+
     });
-    // deleteStorage();
+    console.log(ideaArray)
+
+
+  }
+
+  //Function makes a new card with the info in the input fields
+  function makeNewCard() {
+    ideaArray = JSON.parse(localStorage.getItem('ideaArray'));
+    var newTitle = ideaArray[0].ideaTitle
+    var newBody = ideaArray[0].ideaBody
+    console.log(ideaArray[0])
+    var tracker = `btn-${ideaArray.length}`;
+    console.log(tracker)
+  var newCard = `<article class="m-idea-card">
+                    <div class="idea-header flex-row">
+                      <h2>${newTitle}</h2>
+                      <button class="delete-card svg ${tracker}" alt="Delete"></button>
+                    </div>
+                    <p class="idea-description">${newBody}</p>
+                    <div class="quality-buttons">
+                      <button class="upvote svg" role="button" aria-label="Upvote Idea"></button>
+                      <button class="downvote svg"></button>
+                      <p class="quality">swill</p>
+                  </div>
+                  <hr>
+                </article>`
+   ideaList.prepend(newCard);
+   clearInput()
+  }
+
+  //Function checks if any data is stored and adds it to localStorage.
+  //Function currently stores but overwrites the previous data with the key savedData
+  function saveNewInput() {
+    var ideaObject = {
+    "ideaTitle": userTitle.val(),
+    "ideaBody": userBody.val(),
+    };
+    ideaArray.unshift(ideaObject);
+    localStorage.setItem('ideaArray', JSON.stringify(ideaArray))
+
   }
 
   saveBtn.on('click', function (event) {
@@ -45,7 +83,6 @@ $(document).ready( function () {
     deleteIdea();
     $('.save-btn').prop('disabled', checkInputs);
   });
-  cardContainer.on('click', console.log('test'))
 
   $('.idea-title').on('keyup', function () {
     $('.save-btn').prop('disabled', checkInputs);
@@ -59,41 +96,10 @@ $(document).ready( function () {
   //        create card using parsed date includes unique identifier--> clear the input
 
 
-  //Function checks if any data is stored and adds it to localStorage.
-  //Function currently stores but overwrites the previous data with the key savedData
-  function saveNewInput() {
-    var ideaObject = {
-    ideaTitle: userTitle.val(),
-    ideaBody: userBody.val(),
-    };
-    ideaArray.unshift(ideaObject);
-    localStorage.setItem('ideaArray', JSON.stringify(ideaArray))
-
-  }
 
 
-  //Function makes a new card with the info in the input fields
-  function makeNewCard() {
-    ideaArray = JSON.parse(localStorage.getItem('ideaArray'));
-    var newTitle = ideaArray[0].ideaTitle
-    var newBody = ideaArray[0].ideaBody
-    console.log(ideaArray[0])
-  var newCard = `<article class="m-idea-card">
-                    <div class="idea-header flex-row">
-                      <h2>${newTitle}</h2>
-                      <button class="delete-card svg" alt="Delete"></button>
-                    </div>
-                    <p class="idea-description">${newBody}</p>
-                    <div class="quality-buttons">
-                      <button class="upvote svg" role="button" aria-label="Upvote Idea"></button>
-                      <button class="downvote svg"></button>
-                      <p class="quality">swill</p>
-                  </div>
-                  <hr>
-                </article>`
-   ideaList.prepend(newCard);
-   clearInput()
-  }
+
+
 
   function initializeCards() {
    if (ideaArray[0] !== undefined) {
