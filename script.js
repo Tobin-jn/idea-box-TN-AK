@@ -14,19 +14,14 @@ $(document).ready( function () {
   deleteIdea();
 
 
-  class ideaObject {
-    constructor({ideaTitle, ideaBody}) {
-      this.ideaTitle = ideaTitle;
-      this.ideaBody = ideaBody;
-    }
-  }
-
   // console.log (localStorage.getItem('ideaArray'))
   //a function when the page is first loaded.
   //This function checks if any data is in local Storage and adds the data as a card.
 
   function checkInputs () {
-    if ($('.idea-title').val() && $('.textbox').val()) return false;
+    if ($('.idea-title').val() && $('.textbox').val()) {
+      return false;
+    } 
     return true;
   }
 
@@ -52,9 +47,38 @@ $(document).ready( function () {
 
     });
 
+  }
 
+  $('.quality-buttons').mouseenter(function() {
+    var $idea = $('p.quality')
+    counter = checkIdea($idea)
+    $('.upvote').on('click', function() {
+      if (counter !== 2) counter++;
+      changeQuality(counter, $idea)
+    })
+    $('.downvote').on('click', function() {
+      if(counter !== 0) counter--;
+      changeQuality(counter, $idea)
+    })
+  })
 
+  function checkIdea(idea) {
+    // debugger
+    var counter = null;
+    var quality = (idea[0].innerText)
+    if (quality == 'swill') return counter = 0;
+    else if (quality == 'plausible') return counter = 1;
+    else if (quality == 'genius') return counter = 2;
+    console.log(idea)
+  }
 
+  function changeQuality(counter, idea) {
+    console.log('test')
+    debugger
+    // var quality = (idea[0].innerText)
+    if (counter == 0) idea[0].innerText = 'swill';
+    else if (counter == 1) idea[0].innerText = 'plausible';
+    else if (counter == 2) idea[0].innerText = 'genius';
   }
 
   //Function makes a new card with the info in the input fields
