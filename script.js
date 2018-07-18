@@ -13,6 +13,14 @@ $(document).ready( function () {
   initializeCards();
   deleteIdea();
 
+
+  class ideaObject {
+    constructor({ideaTitle, ideaBody}) {
+      this.ideaTitle = ideaTitle;
+      this.ideaBody = ideaBody;
+    }
+  }
+
   // console.log (localStorage.getItem('ideaArray'))
   //a function when the page is first loaded.
   //This function checks if any data is in local Storage and adds the data as a card.
@@ -31,10 +39,20 @@ $(document).ready( function () {
     $('.delete-card').on('click', function () {
       $(this).parent().parent().slideUp(1000);
       var deleteMe = $(this).prev().html();
+      deleteMe = deleteMe.toString();
       console.log(deleteMe)
+      console.log(ideaArray)
+      for (var x in ideaArray) {
+        if (deleteMe == ideaArray[x].ideaTitle) {
+          ideaArray.splice(x, 1);
+          localStorage.setItem('ideaArray', JSON.stringify(ideaArray))
+        }
+
+      }
 
     });
-    console.log(ideaArray)
+
+
 
 
   }
