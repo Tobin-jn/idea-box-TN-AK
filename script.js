@@ -12,6 +12,7 @@ $(document).ready( function () {
   checkStorage();
   initializeCards();
   deleteIdea();
+  qualityKeeper();
 
 
   // console.log (localStorage.getItem('ideaArray'))
@@ -21,7 +22,7 @@ $(document).ready( function () {
   function checkInputs () {
     if ($('.idea-title').val() && $('.textbox').val()) {
       return false;
-    } 
+    }
     return true;
   }
 
@@ -46,39 +47,70 @@ $(document).ready( function () {
       }
 
     });
-
   }
 
-  $('.quality-buttons').mouseenter(function() {
-    var $idea = $('p.quality')
-    counter = checkIdea($idea)
-    $('.upvote').on('click', function() {
-      if (counter !== 2) counter++;
-      changeQuality(counter, $idea)
-    })
-    $('.downvote').on('click', function() {
-      if(counter !== 0) counter--;
-      changeQuality(counter, $idea)
-    })
-  })
+  function qualityKeeper () {
+    $('.downvote').on('click', function () {
+      var deleteMe = $(this).parent().prev().html();
+      var newHTML = '';
+      deleteMe = deleteMe.toString();
+      console.log(deleteMe)
+      console.log(ideaArray)
+      for (var x in ideaArray) {
+        if (deleteMe == ideaArray[x].ideaBody) {
+          var counter = checkIdea(ideaArray, x)
+          if(counter > 0) counter--
+          changeQuality(counter, ideaArray, x);
+          newHTML = ideaArray[x].ideaQuality;
+          localStorage.setItem('ideaArray', JSON.stringify(ideaArray))
+        }
+      }
+      $(this).siblings('p').html(newHTML)
+    });
 
-  function checkIdea(idea) {
+    $('.upvote').on('click', function () {
+      var deleteMe = $(this).parent().prev().html();
+      var newHTML = '';
+      deleteMe = deleteMe.toString();
+      for (var x in ideaArray) {
+        if (deleteMe == ideaArray[x].ideaBody) {
+          var counter = checkIdea(ideaArray, x)
+          if(counter <= 3) counter++
+          changeQuality(counter, ideaArray, x);
+          newHTML = ideaArray[x].ideaQuality;
+          localStorage.setItem('ideaArray', JSON.stringify(ideaArray))
+        }
+      }
+      $(this).siblings('p').html(newHTML)
+    });
+  }
+
+  // $('.quality-buttons').mouseenter(function() {
+  //   var $idea = $('p.quality')
+  //   counter = checkIdea($idea)
+  //   $('.upvote').on('click', function() {
+  //     if (counter !== 2) counter++;
+  //     changeQuality(counter, $idea)
+  //   })
+  //   $('.downvote').on('click', function() {
+  //     if(counter !== 0) counter--;
+  //     changeQuality(counter, $idea)
+  //   })
+  // })
+
+  function checkIdea(idea, index) {
     // debugger
     var counter = null;
-    var quality = (idea[0].innerText)
-    if (quality == 'swill') return counter = 0;
-    else if (quality == 'plausible') return counter = 1;
-    else if (quality == 'genius') return counter = 2;
-    console.log(idea)
+    var quality = (idea[index].ideaQuality)
+    if (quality == 'swill') return 0;
+    else if (quality == 'plausible') return 1;
+    else if (quality == 'genius') return 2;
   }
 
-  function changeQuality(counter, idea) {
-    console.log('test')
-    debugger
-    // var quality = (idea[0].innerText)
-    if (counter == 0) idea[0].innerText = 'swill';
-    else if (counter == 1) idea[0].innerText = 'plausible';
-    else if (counter == 2) idea[0].innerText = 'genius';
+  function changeQuality(counter, idea, index) {
+    if (counter == 0) idea[index].ideaQuality = 'swill';
+    else if (counter == 1) idea[index].ideaQuality = 'plausible';
+    else if (counter == 2) idea[index].ideaQuality = 'genius';
   }
 
   //Function makes a new card with the info in the input fields
@@ -86,19 +118,17 @@ $(document).ready( function () {
     ideaArray = JSON.parse(localStorage.getItem('ideaArray'));
     var newTitle = ideaArray[0].ideaTitle
     var newBody = ideaArray[0].ideaBody
-    console.log(ideaArray[0])
-    var tracker = `btn-${ideaArray.length}`;
-    console.log(tracker)
-  var newCard = `<article class="m-idea-card">
+    var newIdea = ideaArray[0].ideaQuality
+    var newCard = `<article class="m-idea-card">
                     <div class="idea-header flex-row">
                       <h2>${newTitle}</h2>
-                      <button class="delete-card svg ${tracker}" alt="Delete"></button>
+                      <button class="delete-card svg" alt="Delete"></button>
                     </div>
                     <p class="idea-description">${newBody}</p>
                     <div class="quality-buttons">
-                      <button class="upvote svg" role="button" aria-label="Upvote Idea"></button>
-                      <button class="downvote svg"></button>
-                      <p class="quality">swill</p>
+                      <button class="vote upvote svg" role="button" aria-label="Upvote Idea"></button>
+                      <button class="vote downvote svg"></button>
+                      <p class="quality">${newIdea}</p>
                   </div>
                   <hr>
                 </article>`
@@ -112,6 +142,7 @@ $(document).ready( function () {
     var ideaObject = {
     "ideaTitle": userTitle.val(),
     "ideaBody": userBody.val(),
+    "ideaQuality": "swill"
     };
     ideaArray.unshift(ideaObject);
     localStorage.setItem('ideaArray', JSON.stringify(ideaArray))
@@ -123,6 +154,7 @@ $(document).ready( function () {
     saveNewInput();
     makeNewCard();
     deleteIdea();
+    qualityKeeper();
     $('.save-btn').prop('disabled', checkInputs);
   });
 
@@ -149,6 +181,7 @@ $(document).ready( function () {
      ideaArray.forEach( function(element) {
       var newTitle = element.ideaTitle
       var newBody = element.ideaBody
+      var newQuality = element.ideaQuality
       var newCard = `<article class="m-idea-card">
                       <div class="idea-header flex-row">
                         <h2>${newTitle}</h2>
@@ -158,7 +191,7 @@ $(document).ready( function () {
                       <div class="quality-buttons">
                         <button class="upvote svg" role="button" aria-label="Upvote Idea"></button>
                         <button class="downvote svg"></button>
-                        <p class="quality">swill</p>
+                        <p class="quality">${newQuality}</p>
                     </div>
                     <hr>
                   </article>`
