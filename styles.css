@@ -14,7 +14,6 @@ hr {
   background-color: #D1D3D4;
   border: none;
   height: 1.5px;
-  /* margin-top: 1rem; */
 }
 
 h1 {
@@ -33,7 +32,6 @@ h1 span {
   color: #6D6E71;
 }
 
-
 .svg {
   height: 30px;
 }
@@ -49,13 +47,11 @@ h1 span {
   grid-template-areas:
   "idea-entry idea-entry idea-entry"
   ". idea-container .";
-
   height: 100vh;
 }
 
 .layout-idea-container {
   align-items: center;
-  /* border: 3px solid rgb(236, 145, 25); */
   display: flex;
   flex-direction: column;
   grid-area: idea-container;
@@ -68,7 +64,6 @@ h1 span {
   flex-direction: column;
   grid-area: idea-entry;
   justify-content: space-around;
-
 }
 
 
@@ -87,7 +82,6 @@ h1 span {
   color: #6D6E71;
   display: flex;
   justify-content: space-between;
-
 }
 
 .m-idea-card div.quality-buttons {
@@ -136,6 +130,7 @@ h1 span {
   margin: 5px auto 30px;
   width: 60%;
 }
+
 
 /* Buttons */
 
@@ -194,6 +189,7 @@ button:hover {
   background-color: #86b9b4;
 }
 
+
 @media screen (max-width: 600px), (orientation: portrait) {
 
   button {
@@ -227,5 +223,4 @@ button:hover {
   .textbox {
     height: 9rem;
   }
-
 }
