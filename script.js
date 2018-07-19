@@ -85,6 +85,17 @@ $(document).ready( function () {
     });
   }
 
+  function search() {
+    var filter = $(this).val();
+    $('.m-idea-list article').each(function() {
+      if($(this).text().search(new RegExp(filter, 'i')) !== -1) {
+        $(this).fadeIn()
+      } else {
+        $(this).fadeOut()
+      }
+    });
+  }
+
   // $('.quality-buttons').mouseenter(function() {
   //   var $idea = $('p.quality')
   //   counter = checkIdea($idea)
@@ -121,10 +132,10 @@ $(document).ready( function () {
     var newIdea = ideaArray[0].ideaQuality
     var newCard = `<article class="m-idea-card">
                     <div class="idea-header flex-row">
-                      <h2>${newTitle}</h2>
+                      <h2 class="search-me">${newTitle}</h2>
                       <button class="delete-card svg" alt="Delete"></button>
                     </div>
-                    <p class="idea-description">${newBody}</p>
+                    <p class="search-me idea-description">${newBody}</p>
                     <div class="quality-buttons">
                       <button class="vote upvote svg" role="button" aria-label="Upvote Idea"></button>
                       <button class="vote downvote svg"></button>
@@ -166,6 +177,8 @@ $(document).ready( function () {
     $('.save-btn').prop('disabled', checkInputs);
   })
 
+  $('.m-searchbar').on('keyup', search);
+
   //1. Click --> capture inputs --> move info to local storage -->
   //        create card using parsed date includes unique identifier--> clear the input
 
@@ -184,10 +197,10 @@ $(document).ready( function () {
       var newQuality = element.ideaQuality
       var newCard = `<article class="m-idea-card">
                       <div class="idea-header flex-row">
-                        <h2>${newTitle}</h2>
+                        <h2 class="search-me">${newTitle}</h2>
                         <button class="delete-card svg" alt="Delete"></button>
                       </div>
-                      <p class="idea-description">${newBody}</p>
+                      <p class="search-me idea-description">${newBody}</p>
                       <div class="quality-buttons">
                         <button class="upvote svg" role="button" aria-label="Upvote Idea"></button>
                         <button class="downvote svg"></button>
