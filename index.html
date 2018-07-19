@@ -12,28 +12,18 @@
     <main class="layout-main">
       <form class="layout-idea-entry idea-form">
         <h1>idea<span class="box-style">box</span></h1>
-
-        <!-- added class to differentiate between title and body -->
         <input type="text" title="Title Entry" class="m-input m-input-title idea-title" placeholder="Title">
         <input type="text" title="Idea Body Entry" class="m-input m-input-body textbox" placeholder="Body">
-
-        <button class="save-btn m-submit-btn">save</button>
+        <button class="save-btn m-submit-btn" aria-label="Save Button">save</button>
       </form>
-
       <section class="idea-container layout-idea-container">
         <input type="text" name="Search" class="m-searchbar m-input" placeholder="Search">
-        <div class="m-idea-list">
+        <div class="m-idea-list" aria-label="Ideas">
         </div>
       </section>
     </main>
-
-
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script>window.jQuery || document.write('<script src="jquery-3.3.1.min.js"><\/script>')</script>
     <script type="text/javascript" src="script.js"></script>
-
   </body>
 </html>
-
-
-<!-- Idea Card  -->
